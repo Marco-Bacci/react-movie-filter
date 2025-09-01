@@ -10,9 +10,15 @@ function App() {
   ];
 
   const [genre, setGenre] = useState("")
+  const [filteredGenre, setFilteredGenre] = useState(movies)
+
 
   useEffect(()=>{
-    console.log(`genere selezionato: ${genre}` )
+    console.log(`genere selezionato: ${genre}`)
+    const array = movies.filter((movie)=>{
+      return movie.genre === genre
+    })
+    setFilteredGenre(array)
   }, [genre] ) 
 
   return (
@@ -26,7 +32,7 @@ function App() {
         <div className="row">
           <div className="col-8">
             <ul className="list-group">
-              {movies.map((movie, index) => {
+              {filteredGenre.map((movie, index) => {
                 return (
                   <li key = {index } className="list-group-item  ">
                     <p>{movie.title}</p>
