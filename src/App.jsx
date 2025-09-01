@@ -9,17 +9,23 @@ function App() {
     { title: "Pulp Fiction", genre: "Thriller" },
   ];
 
-  const [genre, setGenre] = useState("")
-  const [filteredGenre, setFilteredGenre] = useState(movies)
+  const [genre, setGenre] = useState("");
+  const [filteredGenre, setFilteredGenre] = useState(movies);
 
-
-  useEffect(()=>{
-    console.log(`genere selezionato: ${genre}`)
-    const array = movies.filter((movie)=>{
-      return movie.genre === genre
-    })
-    setFilteredGenre(array)
-  }, [genre] ) 
+  useEffect(() => {
+    console.log(`genere selezionato: ${genre}`);
+    // SE genre è vuoto
+    // ALLORA flteredGenre deve essere uguale a tutti i movies
+    // ALTRIMENTI (gnere non è vuoto) devo filtrare e FilteredGenre deve essere = al risultato del filtro
+    if (genre === "") {
+      setFilteredGenre(movies);
+    } else {
+      const array = movies.filter((movie) => {
+        return movie.genre === genre;
+      });
+      setFilteredGenre(array);
+    }
+  }, [genre]);
 
   return (
     <>
@@ -34,7 +40,7 @@ function App() {
             <ul className="list-group">
               {filteredGenre.map((movie, index) => {
                 return (
-                  <li key = {index } className="list-group-item  ">
+                  <li key={index} className="list-group-item  ">
                     <p>{movie.title}</p>
                   </li>
                 );
@@ -42,14 +48,13 @@ function App() {
             </ul>
           </div>
           <div className="col-4 mt-3">
-            <select onChange={(e)=> setGenre(e.target.value)}>
+            <select onChange={(e) => setGenre(e.target.value)}>
               <option value="">Seleziona genere</option>
               <option value="Fantascienza">Fantascienza</option>
               <option value="Thriller">Thriller</option>
               <option value="Romantico">Romantico</option>
               <option value="Azione">Azione</option>
             </select>
-
           </div>
         </div>
       </div>
