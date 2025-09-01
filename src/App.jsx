@@ -10,22 +10,28 @@ function App() {
   ];
 
   const [genre, setGenre] = useState("");
-  const [filteredGenre, setFilteredGenre] = useState(movies);
+  const [filtered, setFiltered] = useState(movies);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
-    console.log(`genere selezionato: ${genre}`);
+    console.log(`genere selezionato: ${genre}, titolo: ${title}`);
     // SE genre è vuoto
     // ALLORA flteredGenre deve essere uguale a tutti i movies
-    // ALTRIMENTI (gnere non è vuoto) devo filtrare e FilteredGenre deve essere = al risultato del filtro
-    if (genre === "") {
-      setFilteredGenre(movies);
-    } else {
-      const array = movies.filter((movie) => {
+    // ALTRIMENTI (gnere non è vuoto) devo filtrare e Filtered deve essere = al risultato del filtro
+    let array = movies;
+
+    if (genre !== "") {
+      array = array.filter((movie) => {
         return movie.genre === genre;
       });
-      setFilteredGenre(array);
     }
-  }, [genre]);
+    if (title !== "") {
+      array = array.filter((movie) => {
+        return movie.title.toLowerCase().includes(title.toLowerCase());
+      });
+    }
+    setFiltered(array);
+  }, [genre, title]);
 
   return (
     <>
@@ -38,7 +44,7 @@ function App() {
         <div className="row">
           <div className="col-8">
             <ul className="list-group">
-              {filteredGenre.map((movie, index) => {
+              {filtered.map((movie, index) => {
                 return (
                   <li key={index} className="list-group-item  ">
                     <p>{movie.title}</p>
@@ -55,6 +61,15 @@ function App() {
               <option value="Romantico">Romantico</option>
               <option value="Azione">Azione</option>
             </select>
+            <div>
+              <input
+                className="mt-3"
+                type="text"
+                placeholder="Cerca per titolo"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
