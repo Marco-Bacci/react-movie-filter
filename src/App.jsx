@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function App() {
   const movies = [
     { title: "Inception", genre: "Fantascienza" },
@@ -8,7 +8,10 @@ function App() {
     { title: "Interstellar", genre: "Fantascienza" },
     { title: "Pulp Fiction", genre: "Thriller" },
   ];
-
+  const [genre, setGenre] = useState("")
+  useEffect(()=>{
+    console.log("genere selezionato")
+  }, [genre] ) 
   return (
     <>
       <div className="container">
@@ -20,9 +23,9 @@ function App() {
         <div className="row">
           <div className="col-8">
             <ul className="list-group">
-              {movies.map((movie) => {
+              {movies.map((movie, index) => {
                 return (
-                  <li className="list-group-item  ">
+                  <li key = {index } className="list-group-item  ">
                     <p>{movie.title}</p>
                   </li>
                 );
@@ -30,7 +33,7 @@ function App() {
             </ul>
           </div>
           <div className="col-4 mt-3">
-            <select>
+            <select onChange={(e)=> setGenre(e.target.value)}>
               <option value="">Seleziona genere</option>
               <option value="Fantascienza">Fantascienza</option>
               <option value="Thriller">Thriller</option>
