@@ -8,10 +8,13 @@ function App() {
     { title: "Interstellar", genre: "Fantascienza" },
     { title: "Pulp Fiction", genre: "Thriller" },
   ];
+
   const [genre, setGenre] = useState("")
+
   useEffect(()=>{
-    console.log("genere selezionato")
+    console.log(`genere selezionato: ${genre}` )
   }, [genre] ) 
+
   return (
     <>
       <div className="container">
